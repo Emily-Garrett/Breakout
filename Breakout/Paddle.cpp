@@ -14,14 +14,14 @@ Paddle::~Paddle()
 {
 }
 
-void Paddle::moveLeft(float dt)
+void Paddle::moveLeft(float speed, float dt)
 {
-    _sprite.move(sf::Vector2f(-dt * PADDLE_SPEED, 0));
+    _sprite.move(sf::Vector2f(-dt * speed, 0));
 }
 
-void Paddle::moveRight(float dt)
+void Paddle::moveRight(float speed, float dt)
 {
-    _sprite.move(sf::Vector2f(dt * PADDLE_SPEED, 0));
+    _sprite.move(sf::Vector2f(dt * speed, 0));
 }
 
 void Paddle::update(float dt)

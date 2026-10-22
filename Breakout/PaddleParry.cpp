@@ -21,10 +21,9 @@ void PaddleParry::OnExit(Paddle* paddle)
 
 void PaddleParry::OnUpdate(Paddle* paddle, float dt)
 {
+	_parryDuration -= dt;
 	if (_parryDuration <= 0)
 	{
 		paddle->setState(new PaddleRecovery(0.3f));
 	}
-
-	_parryDuration -= dt;
 }

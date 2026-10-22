@@ -147,6 +147,7 @@
     </ClCompile>
     <ClCompile Include="MessagingSystem.cpp" />
     <ClCompile Include="Paddle.cpp" />
+    <ClCompile Include="PaddleDash.cpp" />
     <ClCompile Include="PaddleIdle.cpp" />
     <ClCompile Include="PaddleParry.cpp" />
     <ClCompile Include="PaddleRecovery.cpp" />
@@ -167,6 +168,7 @@
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="MessagingSystem.h" />
     <ClInclude Include="Paddle.h" />
+    <ClInclude Include="PaddleDash.h" />
     <ClInclude Include="PaddleIdle.h" />
     <ClInclude Include="PaddleParry.h" />
     <ClInclude Include="PaddleRecovery.h" />

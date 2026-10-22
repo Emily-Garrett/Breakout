@@ -10,8 +10,8 @@ public:
     Paddle(sf::RenderWindow* window);
     ~Paddle();
 
-    void moveLeft(float dt);
-    void moveRight(float dt);
+    void moveLeft(float speed, float dt);
+    void moveRight(float speed, float dt);
     void update(float dt);
     void render();
     sf::FloatRect getBounds() const;

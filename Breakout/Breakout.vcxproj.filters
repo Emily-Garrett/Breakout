@@ -78,6 +78,9 @@
     <ClCompile Include="PaddleRecovery.cpp">
       <Filter>Source Files\PaddleStateMachine</Filter>
     </ClCompile>
+    <ClCompile Include="PaddleDash.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ball.h">
@@ -135,6 +138,9 @@
       <Filter>Header Files\PaddleStateMachine</Filter>
     </ClInclude>
     <ClInclude Include="PaddleRecovery.h">
+      <Filter>Header Files\PaddleStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="PaddleDash.h">
       <Filter>Header Files\PaddleStateMachine</Filter>
     </ClInclude>
   </ItemGroup>
