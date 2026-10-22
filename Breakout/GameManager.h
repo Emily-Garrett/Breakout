@@ -24,7 +24,7 @@ public:
     void incrementCombo();
     void resetCombo();
     int getComboCount();
-    void restartLevel();
+    void restartGame();
     void advanceLevel();
 
     Paddle* getPaddle() const;
@@ -34,17 +34,19 @@ public:
     UI* getUI() const;
     AudioManager* getAudio() const;
 
+    void saveLevelData();
+    void tryLoadLevelData();
 
 private:
     bool _pause;
     float _pauseHold;
     float _time;
     float _timeLastPowerupSpawned;
-    int _lives;
-    int _comboCount;
+    uint8_t _lives;
+    uint8_t _comboCount;
     bool _levelComplete;
     std::pair<POWERUPS, float> _powerupInEffect;
-    int _level;
+    uint8_t _level;
 
     sf::Font _font;
     sf::Text _masterText;

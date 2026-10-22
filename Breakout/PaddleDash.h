@@ -12,5 +12,4 @@ public:
 private:
 	bool _movingRight;
 	float _duration;
-	float _speed;
 };

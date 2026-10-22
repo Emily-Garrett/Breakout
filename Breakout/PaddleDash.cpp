@@ -5,8 +5,7 @@
 PaddleDash::PaddleDash(float movingRight)
 {
 	_movingRight = movingRight;
-	_duration = 0.3f;
-	_speed = 800.f;
+	_duration = 0.25f;
 }
 
 void PaddleDash::OnEnter(Paddle* paddle)

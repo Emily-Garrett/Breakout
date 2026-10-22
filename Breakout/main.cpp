@@ -7,7 +7,7 @@ int main()
 
     sf::RenderWindow window(sf::VideoMode(1000, 800), "Breakout");
     GameManager gameManager(&window);
-    gameManager.initialize();
+    gameManager.tryLoadLevelData();
 
     sf::Clock clock;
     float deltaTime;
@@ -29,6 +29,8 @@ int main()
         gameManager.render();
         window.display();
     }
+
+    gameManager.saveLevelData();
 
     return 0;
 }

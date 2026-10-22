@@ -23,6 +23,11 @@ void BrickManager::createBricks(int rows, int cols, float brickWidth, float bric
     }
 }
 
+void BrickManager::insertBrick(float x, float y, float w, float h)
+{
+    _bricks.emplace_back(x, y, w, h);
+}
+
 void BrickManager::render()
 {
     for (auto& brick : _bricks) {
@@ -57,4 +62,9 @@ int BrickManager::checkCollision(sf::CircleShape& ball, sf::Vector2f& direction)
         _gameManager->levelComplete();
     }
     return collisionResponse;
+}
+
+const std::vector<Brick>& BrickManager::getBricks()
+{
+    return _bricks;
 }

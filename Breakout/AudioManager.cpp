@@ -3,6 +3,8 @@
 AudioManager::AudioManager()
 {
 	_soundBuffers[SoundID::Parry].loadFromFile("sfx/parry.wav");
+	_soundBuffers[SoundID::BlockBreak].loadFromFile("sfx/break.wav");
+
 }
 
 void AudioManager::PlaySound(SoundID id, float pitch)

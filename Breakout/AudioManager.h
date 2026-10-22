@@ -10,7 +10,8 @@ public:
 
 	enum struct SoundID
 	{
-		Parry = 0
+		Parry = 0,
+		BlockBreak
 	};
 
 	void PlaySound(SoundID id, float pitch = 1.f);

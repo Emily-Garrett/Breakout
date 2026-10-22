@@ -95,7 +95,6 @@ void Ball::update(float dt)
             }
 
             _gameManager->getAudio()->PlaySound(AudioManager::SoundID::Parry, 1.f + (_gameManager->getComboCount() * 0.02f));
-            _gameManager->incrementCombo();
 
             _hitstop = 0.05f + (_gameManager->getComboCount() * 0.025f);
             _gameManager->getPaddle()->setHitstop(_hitstop);
@@ -109,6 +108,14 @@ void Ball::update(float dt)
 
     // collision with bricks
     int collisionResponse = _gameManager->getBrickManager()->checkCollision(_sprite, _direction);
+
+    if (collisionResponse != 0)
+    {
+        float pitch = 0.9f + (((double)rand() / (RAND_MAX)) * 0.2);
+        _gameManager->getAudio()->PlaySound(AudioManager::SoundID::BlockBreak, pitch);
+        _gameManager->incrementCombo();
+    }
+
     if (_isFireBall) return; // no collisisons when in fireBall mode.
     if (collisionResponse == 1)
     {
