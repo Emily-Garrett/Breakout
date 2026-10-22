@@ -22,6 +22,7 @@ public:
     void powerupEffect(POWERUPS pu, float t);
     void incrementCombo();
     void resetCombo();
+    int getComboCount();
 
     Paddle* getPaddle() const;
     BrickManager* getBrickManager() const;

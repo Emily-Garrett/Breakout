@@ -16,6 +16,6 @@ public:
 	void PlaySound(SoundID id, float pitch = 1.f);
 	void clearSounds();
 private:
-	std::map<SoundID, sf::SoundBuffer> soundBuffers;
-	std::vector<sf::Sound> currentSounds;
+	std::map<SoundID, sf::SoundBuffer> _soundBuffers;
+	std::vector<sf::Sound> _currentSounds;
 };

@@ -22,6 +22,8 @@ public:
     void setCanParry(bool canParry);
     bool canParry();
     void setColour(sf::Color colour);
+    void setHitstop(float hitstop);
+    void setHitflash(sf::Color colour);
 private:
     PaddleState* _state;
     bool _canParry;
@@ -31,4 +33,6 @@ private:
     float _width = PADDLE_WIDTH;
     bool _isAlive;
     float _timeInNewSize = 0.0f;
+    float _hitstop;
+    sf::Color _hitflashPrevColour;
 };

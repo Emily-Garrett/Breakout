@@ -16,6 +16,12 @@ Ball::~Ball()
 
 void Ball::update(float dt)
 {
+    if (_hitstop > 0)
+    {
+        _hitstop -= dt;
+        return;
+    }
+
     // check for powerup, tick down or correct
     if (_timeWithPowerupEffect > 0.f)
     {
@@ -88,8 +94,12 @@ void Ball::update(float dt)
                 _currentVelocity = _baseVelocity * _velocityMultiplier;
             }
 
+            _gameManager->getAudio()->PlaySound(AudioManager::SoundID::Parry, 1.f + (_gameManager->getComboCount() * 0.02f));
             _gameManager->incrementCombo();
-            _gameManager->getAudio()->PlaySound(AudioManager::SoundID::Parry);
+
+            _hitstop = 0.05f + (_gameManager->getComboCount() * 0.025f);
+            _gameManager->getPaddle()->setHitstop(_hitstop);
+            _gameManager->getPaddle()->setHitflash(sf::Color::White);
         }
         else
         {

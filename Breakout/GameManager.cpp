@@ -120,6 +120,11 @@ void GameManager::resetCombo()
     _ui->updateComboCount(_comboCount);
 }
 
+int GameManager::getComboCount()
+{
+    return _comboCount;
+}
+
 sf::RenderWindow* GameManager::getWindow() const { return _window; }
 UI* GameManager::getUI() const { return _ui; }
 AudioManager* GameManager::getAudio() const { return _audio; }

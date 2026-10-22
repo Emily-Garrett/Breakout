@@ -3,7 +3,7 @@
 #include "PaddleIdle.h"
 
 Paddle::Paddle(sf::RenderWindow* window)
-    : _window(window), _width(PADDLE_WIDTH), _timeInNewSize(0.0f), _isAlive(true)
+    : _window(window), _width(PADDLE_WIDTH), _timeInNewSize(0.0f), _isAlive(true), _hitstop(0.f)
 {
     setState(new PaddleIdle());
     _sprite.setPosition((window->getSize().x - _width) / 2.0f, window->getSize().y - 50.0f);
@@ -26,6 +26,18 @@ void Paddle::moveRight(float speed, float dt)
 
 void Paddle::update(float dt)
 {
+    if (_hitstop > 0)
+    {
+        _hitstop -= dt;
+
+        if (_hitstop <= 0)
+        {
+            setColour(_hitflashPrevColour);
+        }
+
+        return;
+    }
+
     if (_timeInNewSize > 0)
     {
         _timeInNewSize -= dt;
@@ -108,4 +120,15 @@ bool Paddle::canParry()
 void Paddle::setColour(sf::Color colour)
 {
     _sprite.setFillColor(colour);
+}
+
+void Paddle::setHitstop(float hitstop)
+{
+    _hitstop = hitstop;
+}
+
+void Paddle::setHitflash(sf::Color colour)
+{
+    _hitflashPrevColour = _sprite.getFillColor();
+    setColour(colour);
 }
