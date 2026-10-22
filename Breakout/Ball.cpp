@@ -1,6 +1,5 @@
 #include "Ball.h"
 #include "GameManager.h" // avoid cicular dependencies
-#include <iostream>
 
 Ball::Ball(sf::RenderWindow* window, GameManager* gameManager)
     : _window(window), _baseVelocity(BASE_VELOCITY), _currentVelocity(BASE_VELOCITY), _velocityMultiplier(1.f), _gameManager(gameManager),
@@ -90,6 +89,7 @@ void Ball::update(float dt)
             }
 
             _gameManager->incrementCombo();
+            _gameManager->getAudio()->PlaySound(AudioManager::SoundID::Parry);
         }
         else
         {

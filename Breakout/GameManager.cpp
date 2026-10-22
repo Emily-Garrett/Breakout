@@ -23,6 +23,7 @@ void GameManager::initialize()
     _ball = new Ball(_window, this); 
     _powerupManager = new PowerupManager(_window, _paddle, _ball);
     _ui = new UI(_window, _lives, this);
+    _audio = new AudioManager();
 
     // Create bricks
     _brickManager->createBricks(5, 10, 80.0f, 30.0f, 5.0f);
@@ -81,6 +82,7 @@ void GameManager::update(float dt)
     _paddle->update(dt);
     _ball->update(dt);
     _powerupManager->update(dt);
+    _audio->clearSounds();
 }
 
 void GameManager::loseLife()
@@ -120,6 +122,7 @@ void GameManager::resetCombo()
 
 sf::RenderWindow* GameManager::getWindow() const { return _window; }
 UI* GameManager::getUI() const { return _ui; }
+AudioManager* GameManager::getAudio() const { return _audio; }
 Paddle* GameManager::getPaddle() const { return _paddle; }
 BrickManager* GameManager::getBrickManager() const { return _brickManager; }
 PowerupManager* GameManager::getPowerupManager() const { return _powerupManager; }
