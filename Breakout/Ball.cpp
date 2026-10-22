@@ -1,8 +1,9 @@
 #include "Ball.h"
 #include "GameManager.h" // avoid cicular dependencies
+#include <iostream>
 
-Ball::Ball(sf::RenderWindow* window, float velocity, GameManager* gameManager)
-    : _window(window), _velocity(velocity), _gameManager(gameManager),
+Ball::Ball(sf::RenderWindow* window, GameManager* gameManager)
+    : _window(window), _baseVelocity(BASE_VELOCITY), _currentVelocity(BASE_VELOCITY), _velocityMultiplier(1.f), _gameManager(gameManager),
     _timeWithPowerupEffect(0.f), _isFireBall(false), _isAlive(true), _direction({1,1})
 {
     _sprite.setRadius(RADIUS);
@@ -23,8 +24,12 @@ void Ball::update(float dt)
     }
     else
     {
-        if (_velocity != VELOCITY)
-            _velocity = VELOCITY;   // reset speed.
+        if (_currentVelocity != _baseVelocity)
+        {
+            _velocityMultiplier = 1.f;
+            _currentVelocity = _baseVelocity;   // reset speed.
+            std::cout << "Set Ball Velocity: " << _currentVelocity << "\n";
+        }
         else
         {
             setFireBall(0);    // disable fireball
@@ -41,7 +46,7 @@ void Ball::update(float dt)
     }
 
     // Update position with a subtle floating-point error
-    _sprite.move(_direction * _velocity * dt);
+    _sprite.move(_direction * _currentVelocity * dt);
 
     // check bounds and bounce
     sf::Vector2f position = _sprite.getPosition();
@@ -62,9 +67,7 @@ void Ball::update(float dt)
     // lose life bounce
     if (position.y > windowDimensions.y)
     {
-        _sprite.setPosition(0, 300);
-        _direction = { 1, 1 };
-        _gameManager->loseLife();
+        resetBall();
     }
 
     // collision with paddle
@@ -79,12 +82,18 @@ void Ball::update(float dt)
 
             // Adjust position to avoid getting stuck inside the paddle
             _sprite.setPosition(_sprite.getPosition().x, _gameManager->getPaddle()->getBounds().top - 2 * RADIUS);
+
+            // increase speed step
+            if (_baseVelocity < MAX_VELOCITY)
+            {
+                _baseVelocity += VELOCITY_STEP;
+                _currentVelocity = _baseVelocity * _velocityMultiplier;
+                std::cout << "Increased Ball Velocity: " << _currentVelocity << "\n";
+            }
         }
         else
         {
-            _sprite.setPosition(0, 300);
-            _direction = { 1, 1 };
-            _gameManager->loseLife();
+            resetBall();
         }
     }
 
@@ -106,10 +115,12 @@ void Ball::render()
     _window->draw(_sprite);
 }
 
-void Ball::setVelocity(float coeff, float duration)
+void Ball::setVelocityMultiplier(float coeff, float duration)
 {
-    _velocity = coeff * VELOCITY;
+    _velocityMultiplier = coeff;
     _timeWithPowerupEffect = duration;
+
+    _currentVelocity = _baseVelocity * _velocityMultiplier;
 }
 
 void Ball::setFireBall(float duration)
@@ -122,4 +133,14 @@ void Ball::setFireBall(float duration)
     }
     _isFireBall = false;
     _timeWithPowerupEffect = 0.f;    
+}
+
+void Ball::resetBall()
+{
+    _sprite.setPosition(0, 300);
+    _direction = { 1, 1 };
+    _gameManager->loseLife();
+    _baseVelocity = BASE_VELOCITY;
+    _currentVelocity = _baseVelocity * _velocityMultiplier;
+    std::cout << "Reset Ball Velocity: " << _currentVelocity << "\n";
 }

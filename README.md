@@ -36,6 +36,8 @@ _TO DO_
 <Add information to this section about the time you've taken for this task along with a professional changelist.>
 [20 minutes] Added Paddle State Machine
 [10 minutes] Added parry mechanic, state colour coding
+[10 minutes] Added dash mechanic
+[20:20] Added ball incremental speed up, speed cap, reduced fastball multiplier
 
 ---
 

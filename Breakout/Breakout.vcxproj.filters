@@ -79,7 +79,7 @@
       <Filter>Source Files\PaddleStateMachine</Filter>
     </ClCompile>
     <ClCompile Include="PaddleDash.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\PaddleStateMachine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
