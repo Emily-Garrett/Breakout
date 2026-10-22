@@ -28,7 +28,6 @@ void Ball::update(float dt)
         {
             _velocityMultiplier = 1.f;
             _currentVelocity = _baseVelocity;   // reset speed.
-            std::cout << "Set Ball Velocity: " << _currentVelocity << "\n";
         }
         else
         {
@@ -88,8 +87,9 @@ void Ball::update(float dt)
             {
                 _baseVelocity += VELOCITY_STEP;
                 _currentVelocity = _baseVelocity * _velocityMultiplier;
-                std::cout << "Increased Ball Velocity: " << _currentVelocity << "\n";
             }
+
+            _gameManager->incrementCombo();
         }
         else
         {
@@ -142,5 +142,5 @@ void Ball::resetBall()
     _gameManager->loseLife();
     _baseVelocity = BASE_VELOCITY;
     _currentVelocity = _baseVelocity * _velocityMultiplier;
-    std::cout << "Reset Ball Velocity: " << _currentVelocity << "\n";
+    _gameManager->resetCombo();
 }

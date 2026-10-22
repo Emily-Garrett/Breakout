@@ -6,7 +6,7 @@
 GameManager::GameManager(sf::RenderWindow* window)
     : _window(window), _paddle(nullptr), _ball(nullptr), _brickManager(nullptr), _powerupManager(nullptr),
     _messagingSystem(nullptr), _ui(nullptr), _pause(false), _time(0.f), _lives(3), _pauseHold(0.f), _levelComplete(false),
-    _powerupInEffect({ none,0.f }), _timeLastPowerupSpawned(0.f)
+    _powerupInEffect({ none,0.f }), _timeLastPowerupSpawned(0.f), _comboCount(0)
 {
     _font.loadFromFile("font/montS.ttf");
     _masterText.setFont(_font);
@@ -104,6 +104,18 @@ void GameManager::render()
 void GameManager::levelComplete()
 {
     _levelComplete = true;
+}
+
+void GameManager::incrementCombo()
+{
+    _comboCount++;
+    _ui->updateComboCount(_comboCount);
+}
+
+void GameManager::resetCombo()
+{
+    _comboCount = 0;
+    _ui->updateComboCount(_comboCount);
 }
 
 sf::RenderWindow* GameManager::getWindow() const { return _window; }

@@ -19,6 +19,8 @@ public:
     void render();
     void levelComplete();
     void powerupEffect(POWERUPS pu, float t);
+    void incrementCombo();
+    void resetCombo();
 
     Paddle* getPaddle() const;
     BrickManager* getBrickManager() const;
@@ -33,6 +35,7 @@ private:
     float _time;
     float _timeLastPowerupSpawned;
     int _lives;
+    int _comboCount;
     bool _levelComplete;
     std::pair<POWERUPS, float> _powerupInEffect;
 

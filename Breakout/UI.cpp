@@ -22,6 +22,12 @@ UI::UI(sf::RenderWindow* window, int lives, GameManager* gameManager)
 	_powerupText.setFillColor(sf::Color::Cyan);
 	_font.loadFromFile("font/montS.ttf");
 	_powerupText.setFont(_font);
+
+	_comboDisplay.setCharacterSize(48);
+	_comboDisplay.setPosition(900, 300);
+	_comboDisplay.setRotation(30);
+	_comboDisplay.setFont(_font);
+	_comboDisplay.setFillColor(sf::Color::Yellow);
 }
 
 UI::~UI()
@@ -67,6 +73,18 @@ void UI::updatePowerupText(std::pair<POWERUPS, float> powerup)
 	}
 }
 
+void UI::updateComboCount(int comboCount)
+{
+	if (comboCount <= 0)
+	{
+		_comboDisplay.setString("");
+	}
+	else
+	{
+		_comboDisplay.setString(std::to_string(comboCount) + "x");
+	}
+}
+
 void UI::lifeLost(int lives)
 {
 	_lives[_lives.size() - 1 - lives].setFillColor(sf::Color::Transparent);
@@ -75,6 +93,7 @@ void UI::lifeLost(int lives)
 void UI::render()
 {
 	_window->draw(_powerupText);
+	_window->draw(_comboDisplay);
 	for (sf::CircleShape life : _lives)
 	{
 		_window->draw(life);

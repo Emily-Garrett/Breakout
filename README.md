@@ -37,7 +37,8 @@ _TO DO_
 [20 minutes] Added Paddle State Machine
 [10 minutes] Added parry mechanic, state colour coding
 [10 minutes] Added dash mechanic
-[20:20] Added ball incremental speed up, speed cap, reduced fastball multiplier
+[15 minutes] Added ball incremental speed up, speed cap, reduced fastball multiplier
+[5 minutes] Added combo display
 
 ---
 
