@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "CONSTANTS.h"
+#include "PaddleState.h"
 
 class Paddle
 {
@@ -16,8 +17,14 @@ public:
     sf::FloatRect getBounds() const;
     void setWidth(float coeff, float duration);
 
+    void setState(PaddleState* newState);
+    void forceStageBounds();
+    void setCanParry(bool canParry);
+    bool canParry();
+    void setColour(sf::Color colour);
 private:
-
+    PaddleState* _state;
+    bool _canParry;
 
     sf::RenderWindow* _window;
     sf::RectangleShape _sprite;

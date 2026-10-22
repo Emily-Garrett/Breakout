@@ -34,6 +34,8 @@ You are to spend between three and eight hours improving this simple Breakout im
 _TO DO_
 
 <Add information to this section about the time you've taken for this task along with a professional changelist.>
+[20 minutes] Added Paddle State Machine
+[10 minutes] Added parry mechanic, state colour coding
 
 ---
 

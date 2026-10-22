@@ -70,13 +70,22 @@ void Ball::update(float dt)
     // collision with paddle
     if (_sprite.getGlobalBounds().intersects(_gameManager->getPaddle()->getBounds()))
     {
-        _direction.y *= -1; // Bounce vertically
+        if (_gameManager->getPaddle()->canParry())
+        {
+            _direction.y *= -1; // Bounce vertically
 
-        float paddlePositionProportion = (_sprite.getPosition().x - _gameManager->getPaddle()->getBounds().left) / _gameManager->getPaddle()->getBounds().width;
-        _direction.x = paddlePositionProportion * 2.0f - 1.0f;
+            float paddlePositionProportion = (_sprite.getPosition().x - _gameManager->getPaddle()->getBounds().left) / _gameManager->getPaddle()->getBounds().width;
+            _direction.x = paddlePositionProportion * 2.0f - 1.0f;
 
-        // Adjust position to avoid getting stuck inside the paddle
-        _sprite.setPosition(_sprite.getPosition().x, _gameManager->getPaddle()->getBounds().top - 2 * RADIUS);
+            // Adjust position to avoid getting stuck inside the paddle
+            _sprite.setPosition(_sprite.getPosition().x, _gameManager->getPaddle()->getBounds().top - 2 * RADIUS);
+        }
+        else
+        {
+            _sprite.setPosition(0, 300);
+            _direction = { 1, 1 };
+            _gameManager->loseLife();
+        }
     }
 
     // collision with bricks

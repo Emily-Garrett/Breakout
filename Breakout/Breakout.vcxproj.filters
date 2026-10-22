@@ -16,6 +16,12 @@
     <Filter Include="Powerups">
       <UniqueIdentifier>{f3758f5c-ad80-41b1-a2fb-fb910363ec2a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\PaddleStateMachine">
+      <UniqueIdentifier>{4a5c9f1b-0676-452f-ae35-096b133e78a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\PaddleStateMachine">
+      <UniqueIdentifier>{3e72afc4-83f2-4439-8096-9951c8a515e3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -63,6 +69,15 @@
     <ClCompile Include="PowerupFireBall.cpp">
       <Filter>Powerups</Filter>
     </ClCompile>
+    <ClCompile Include="PaddleParry.cpp">
+      <Filter>Source Files\PaddleStateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="PaddleIdle.cpp">
+      <Filter>Source Files\PaddleStateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="PaddleRecovery.cpp">
+      <Filter>Source Files\PaddleStateMachine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ball.h">
@@ -109,6 +124,18 @@
     </ClInclude>
     <ClInclude Include="PowerupFireBall.h">
       <Filter>Powerups</Filter>
+    </ClInclude>
+    <ClInclude Include="PaddleState.h">
+      <Filter>Header Files\PaddleStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="PaddleIdle.h">
+      <Filter>Header Files\PaddleStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="PaddleParry.h">
+      <Filter>Header Files\PaddleStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="PaddleRecovery.h">
+      <Filter>Header Files\PaddleStateMachine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

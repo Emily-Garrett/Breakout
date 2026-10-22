@@ -1,10 +1,11 @@
 #include "Paddle.h"
 #include <iostream>
+#include "PaddleIdle.h"
 
 Paddle::Paddle(sf::RenderWindow* window)
     : _window(window), _width(PADDLE_WIDTH), _timeInNewSize(0.0f), _isAlive(true)
 {
-    _sprite.setFillColor(sf::Color::Cyan);
+    setState(new PaddleIdle());
     _sprite.setPosition((window->getSize().x - _width) / 2.0f, window->getSize().y - 50.0f);
     _sprite.setSize(sf::Vector2f(_width, PADDLE_HEIGHT));
 }
@@ -15,22 +16,12 @@ Paddle::~Paddle()
 
 void Paddle::moveLeft(float dt)
 {
-    float position = _sprite.getPosition().x;
-
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && position > 0)
-    {
-        _sprite.move(sf::Vector2f(-dt * PADDLE_SPEED, 0));
-    }
+    _sprite.move(sf::Vector2f(-dt * PADDLE_SPEED, 0));
 }
 
 void Paddle::moveRight(float dt)
 {
-    float position = _sprite.getPosition().x;
-
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && position < _window->getSize().x - _width)
-    {
-        _sprite.move(sf::Vector2f(dt * PADDLE_SPEED, 0));
-    }
+    _sprite.move(sf::Vector2f(dt * PADDLE_SPEED, 0));
 }
 
 void Paddle::update(float dt)
@@ -43,6 +34,13 @@ void Paddle::update(float dt)
     {
         setWidth(1.0f, 0.0f); // Reset to default width after duration
     }
+
+    if (_state)
+    {
+        _state->OnUpdate(this, dt);
+    }
+
+    forceStageBounds();
 }
 
 void Paddle::render()
@@ -64,4 +62,50 @@ void Paddle::setWidth(float coeff, float duration)
     _timeInNewSize = duration;
     float newX = _sprite.getPosition().x + (_width - PADDLE_WIDTH) / 2;
     _sprite.setPosition(newX, _sprite.getPosition().y);
+}
+
+void Paddle::setState(PaddleState* newState)
+{
+    if (_state)
+    {
+        _state->OnExit(this);
+        delete _state;
+    }
+
+    if (!newState)
+    {
+        _state = nullptr;
+        return;
+    }
+
+    _state = newState;
+    _state->OnEnter(this);
+}
+
+void Paddle::forceStageBounds()
+{
+    if (_sprite.getPosition().x < 0)
+    {
+        _sprite.setPosition(0, _sprite.getPosition().y);
+    }
+
+    if (_sprite.getPosition().x > _window->getSize().x - _width)
+    {
+        _sprite.setPosition(_window->getSize().x - _width, _sprite.getPosition().y);
+    }
+}
+
+void Paddle::setCanParry(bool canParry)
+{
+    _canParry = canParry;
+}
+
+bool Paddle::canParry()
+{
+    return _canParry;
+}
+
+void Paddle::setColour(sf::Color colour)
+{
+    _sprite.setFillColor(colour);
 }

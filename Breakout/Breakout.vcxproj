@@ -147,6 +147,9 @@
     </ClCompile>
     <ClCompile Include="MessagingSystem.cpp" />
     <ClCompile Include="Paddle.cpp" />
+    <ClCompile Include="PaddleIdle.cpp" />
+    <ClCompile Include="PaddleParry.cpp" />
+    <ClCompile Include="PaddleRecovery.cpp" />
     <ClCompile Include="PowerupBase.cpp" />
     <ClCompile Include="PowerupBigPaddle.cpp" />
     <ClCompile Include="PowerupFastBall.cpp" />
@@ -164,6 +167,10 @@
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="MessagingSystem.h" />
     <ClInclude Include="Paddle.h" />
+    <ClInclude Include="PaddleIdle.h" />
+    <ClInclude Include="PaddleParry.h" />
+    <ClInclude Include="PaddleRecovery.h" />
+    <ClInclude Include="PaddleState.h" />
     <ClInclude Include="PowerupBase.h" />
     <ClInclude Include="PowerupBigPaddle.h" />
     <ClInclude Include="PowerupFastBall.h" />
