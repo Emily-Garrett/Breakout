@@ -14,6 +14,7 @@
 class GameManager {
 public:
     GameManager(sf::RenderWindow* window);
+    ~GameManager();
     void initialize();
     void update(float dt);
     void loseLife();
@@ -23,6 +24,8 @@ public:
     void incrementCombo();
     void resetCombo();
     int getComboCount();
+    void restartLevel();
+    void advanceLevel();
 
     Paddle* getPaddle() const;
     BrickManager* getBrickManager() const;
@@ -41,6 +44,7 @@ private:
     int _comboCount;
     bool _levelComplete;
     std::pair<POWERUPS, float> _powerupInEffect;
+    int _level;
 
     sf::Font _font;
     sf::Text _masterText;

@@ -41,6 +41,8 @@ _TO DO_
 [5 minutes] Added combo display.
 [25 minutes] Added Audio Manager, parry sound effect.
 [10 minutes] Added parry hitstop and hitflash, scaled parry pitch with combo count.
+[15 minutes] Added restart option after loss.
+[5 minutes] Added next level option with scaling brick count
 
 ---
 

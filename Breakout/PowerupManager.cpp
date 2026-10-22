@@ -27,7 +27,6 @@ void PowerupManager::update(float dt)
         }
     }
 
-
     for (auto it = _powerups.begin(); it != _powerups.end(); )
     {
         checkCollision();

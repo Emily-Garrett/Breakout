@@ -6,7 +6,7 @@
 GameManager::GameManager(sf::RenderWindow* window)
     : _window(window), _paddle(nullptr), _ball(nullptr), _brickManager(nullptr), _powerupManager(nullptr),
     _messagingSystem(nullptr), _ui(nullptr), _pause(false), _time(0.f), _lives(3), _pauseHold(0.f), _levelComplete(false),
-    _powerupInEffect({ none,0.f }), _timeLastPowerupSpawned(0.f), _comboCount(0)
+    _powerupInEffect({ none,0.f }), _timeLastPowerupSpawned(0.f), _comboCount(0), _level(0)
 {
     _font.loadFromFile("font/montS.ttf");
     _masterText.setFont(_font);
@@ -15,8 +15,26 @@ GameManager::GameManager(sf::RenderWindow* window)
     _masterText.setFillColor(sf::Color::Yellow);
 }
 
+GameManager::~GameManager()
+{
+    if (_paddle) delete _paddle;
+    if (_brickManager) delete _brickManager;
+    if (_messagingSystem) delete _messagingSystem;
+    if (_ball) delete _ball;
+    if (_powerupManager) delete _powerupManager;
+    if (_ui) delete _ui;
+    if (_audio) delete _audio;
+}
+
 void GameManager::initialize()
 {
+    if (_paddle) delete _paddle;
+    if (_brickManager) delete _brickManager;
+    if (_messagingSystem) delete _messagingSystem;
+    if (_ball) delete _ball;
+    if (_powerupManager) delete _powerupManager;
+    if (_ui) delete _ui;
+
     _paddle = new Paddle(_window);
     _brickManager = new BrickManager(_window, this);
     _messagingSystem = new MessagingSystem(_window);
@@ -26,7 +44,9 @@ void GameManager::initialize()
     _audio = new AudioManager();
 
     // Create bricks
-    _brickManager->createBricks(5, 10, 80.0f, 30.0f, 5.0f);
+    int rows = 5 + _level;
+    int columns = 10 + _level;
+    _brickManager->createBricks(rows, columns, 800.f / columns, 150.f / rows, 50.0f / columns);
 }
 
 void GameManager::update(float dt)
@@ -34,16 +54,17 @@ void GameManager::update(float dt)
     _powerupInEffect = _powerupManager->getPowerupInEffect();
     _ui->updatePowerupText(_powerupInEffect);
     _powerupInEffect.second -= dt;
-    
 
     if (_lives <= 0)
     {
-        _masterText.setString("Game over.");
+        _masterText.setString("Game over.\nPress Enter to restart.");
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) { restartLevel(); }
         return;
     }
     if (_levelComplete)
     {
-        _masterText.setString("Level completed.");
+        _masterText.setString("Level completed.\nPress Enter to advance.");
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) { advanceLevel(); }
         return;
     }
     // pause and pause handling
@@ -123,6 +144,25 @@ void GameManager::resetCombo()
 int GameManager::getComboCount()
 {
     return _comboCount;
+}
+
+void GameManager::restartLevel()
+{
+    _masterText.setString("");
+
+    _levelComplete = false;
+    _comboCount = 0;
+    _lives = 3;
+    _time = 0.f;
+    _timeLastPowerupSpawned = 0.f;
+
+    initialize();
+}
+
+void GameManager::advanceLevel()
+{
+    _level++;
+    restartLevel();
 }
 
 sf::RenderWindow* GameManager::getWindow() const { return _window; }
